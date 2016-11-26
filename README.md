@@ -1,5 +1,5 @@
-# webpack module bundler (with UglifyJS2#harmony)
-This repository holds the Webpack fork using the Harmony branch of UglifyJS2, in order to handle ES6/ES2015 minification.
+# webpack module bundler (with UglifyJs2#harmony)
+This repository holds the Webpack fork using the Harmony branch of UglifyJs2, in order to handle ES6/ES2015 minification.
 
 [![webpack](https://webpack.github.io/assets/logo.png)](https://webpack.github.io)
 
