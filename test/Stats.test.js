@@ -59,11 +59,13 @@ describe("Stats", function() {
 					colors: false
 				};
 				var hasColorSetting = false;
-
 				if(typeof options.stats !== "undefined") {
 					toStringOptions = options.stats;
 
 					hasColorSetting = typeof options.stats.colors !== "undefined";
+				}
+				if(Array.isArray(options) && !toStringOptions.children) {
+					toStringOptions.children = options.map(o => o.stats);
 				}
 
 				var actual = stats.toString(toStringOptions);
@@ -104,14 +106,14 @@ describe("Stats", function() {
 					errors: ['firstError'],
 					hash: '1234'
 				});
-				mockStats.hasErrors().should.be.ok;
+				mockStats.hasErrors().should.be.ok();
 			});
 			it("hasWarnings", function() {
 				var mockStats = new Stats({
 					warnings: ['firstError'],
 					hash: '1234'
 				});
-				mockStats.hasWarnings().should.be.ok;
+				mockStats.hasWarnings().should.be.ok();
 			});
 		});
 		describe("does not have", function() {
@@ -120,14 +122,14 @@ describe("Stats", function() {
 					errors: [],
 					hash: '1234'
 				});
-				mockStats.hasErrors().should.not.be.ok;
+				mockStats.hasErrors().should.not.be.ok();
 			});
 			it("hasWarnings", function() {
 				var mockStats = new Stats({
 					warnings: [],
 					hash: '1234'
 				});
-				mockStats.hasWarnings().should.not.be.ok;
+				mockStats.hasWarnings().should.not.be.ok();
 			});
 		});
 		it("formatError handles string errors", function() {
@@ -163,9 +165,11 @@ describe("Stats", function() {
 					chunkModules: false,
 					errorDetails: true,
 					reasons: false,
+					depth: false,
 					usedExports: false,
 					providedExports: false,
-					colors: true
+					colors: true,
+					performance: true
 				});
 			});
 			it("truthy values behave as 'normal'", function() {
@@ -185,8 +189,10 @@ describe("Stats", function() {
 					assets: false,
 					entrypoints: false,
 					chunks: false,
+					chunkModules: false,
 					modules: false,
 					reasons: false,
+					depth: false,
 					usedExports: false,
 					providedExports: false,
 					children: false,
@@ -194,7 +200,8 @@ describe("Stats", function() {
 					errors: false,
 					errorDetails: false,
 					warnings: false,
-					publicPath: false
+					publicPath: false,
+					performance: false
 				});
 			});
 			it("falsy values behave as 'none'", function() {
